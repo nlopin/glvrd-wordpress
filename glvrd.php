@@ -112,9 +112,10 @@ function glvrd_meta_box_markup()
                         <span class="stats-stopwords">6</span>
                         <span class="stats-stopwords-suffix">стоп-слов</span>.
 
-                        <span class="stats-sections-prefix">Основные проблемы:</span>
-
-                        <span class="stats-sections"><em data-section="необъективная оценка" class="">необъективная оценка</em> <em data-section="скажите это по-русски">скажите это по-русски</em> <em data-section="обобщение" class="active">обобщение</em> <em data-section="усилитель">усилитель</em></span>
+						<br>
+                        <span>
+                        	<a class="send-to-glvrd" href="http://glvrd.ru" target="_blank">Отправить в Главред</a>
+                    	</span>
                     </div>
                     <br style="clear: both;">
 
