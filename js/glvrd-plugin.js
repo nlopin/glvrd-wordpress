@@ -17,7 +17,7 @@
         	var me = this;
 
  			ed.addButton('glvrd', {
-                title : 'Glvrd for TinyMCE',
+                title : 'Проверить текст на стоп-слова',
                 cmd : 'glvrdCheckContent',
                 image : url + '/../images/glvrd-icon.png'
             });
@@ -47,7 +47,6 @@
 
          	ed.on('ExecCommand', function(e) {
          		if(e.command === 'mceInsertContent') {
-         			console.log('mceInsertContent');
          			var selection = e.target.selection,
          				bookmark = selection.getBookmark()
          				cleanContent = this.removeMarkup(e.target.getContent());
@@ -63,14 +62,25 @@
 
             ed.addCommand('glvrdCheckContent', function(e) {
             	var content = me.removeMarkup(this.getContent()),
+            		strippedContent = content.replace(/(<([^>]+)>)/ig, ""),
             		bookmark = this.selection.getBookmark();
 
             	window.glvrd.proofread(content, function(result) {
             		if (result.status = 'ok') {
-            			var offset = 0, counter={};
+            			var $statsBlock = jQuery('#glvrd_section .stats'),
+            				offset = 0;
             			
-            			// jQuery(this.editor.getBody())
-            			console.log('proofread')
+            			$statsBlock.find('.stats-score').text(result.score);
+	            		$statsBlock.find('.stats-stopwords').text(result.fragments.length);
+            			$statsBlock.find('.stats-sentences').text(me.countSentences(strippedContent));
+            			$statsBlock.find('.stats-words').text(me.countWords(strippedContent));
+            			$statsBlock.find('.stats-chars').text(me.countChars(strippedContent));
+
+            			if (result.fragments.length) {
+            				$statsBlock.find('a.send-to-glvrd').attr('href', result.fragments[0].url);
+            			}
+            			$statsBlock.show();
+
             			result.fragments.forEach(function(fragment) {
             				var tagOpen = '<span class="glvrd-underline" data-glvrd="true" data-description="' + fragment.hint.description + '" data-name="' + fragment.hint.name + '" >',
             					tagClose = '</span>',
@@ -79,20 +89,9 @@
 							content = content.substring(0, fragment.start + offset)
                     			+ tagOpen + content.substring(fragment.start + offset, fragment.end + offset)
                     			+ tagClose + content.substring(fragment.end + offset, content.length);
-                    			console.log(fragment.url);
                 			offset += tagsLength;
-                			
-                			if (counter[fragment.hint.name]) {
-                				counter[fragment.hint.name]++;
-                			} else {
-                				counter[fragment.hint.name] = 0;
-                			}
             			});
             			this.setContent(content);
-
-	            		jQuery('#glvrd_section .stats-score').text(result.score);
-	            		jQuery('#glvrd_section .stats-stopwords').text(result.fragments.length);
-            			jQuery('#glvrd_section .stats').show();
             		} else {
             			alert(result.message);
             		}
@@ -102,8 +101,24 @@
         	});
         },
 
+        countSentences: function(text) {
+        	var sentencesQuantity = text.match(/[^\s](\.|…|\!|\?)(?!\w)(?!\.\.)/g).length;
+
+			if (!/(\.|…|\!|\?)/g.test(text.slice(-1))) {
+  				sentencesQuantity++;
+			}
+    		return sentencesQuantity;
+        },
+
+        countWords: function(text) {
+    		return text.replace(/[А-Яа-яA-Za-z0-9-]+([^А-Яа-яA-Za-z0-9-]+)?/g, ".").length;
+        },
+
+        countChars: function(text) {
+    		return text.replace(/[^А-Яа-яA-Za-z0-9-\s.,()-]+/g, "").length;
+        },
+
         removeMarkup: function(text) {
-        	console.log('removeMarkup');
         	var reg = /(<span[^>]*data-glvrd="true"[^>]*>)(.+?)(<\/span>)/g;
 
         	return text.replace(reg,'$2');

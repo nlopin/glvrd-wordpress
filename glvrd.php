@@ -110,8 +110,7 @@ function glvrd_meta_box_markup()
             
                     <div class="stats-result-div">
                         <span class="stats-stopwords">6</span>
-                        <span class="stats-stopwords-suffix">стоп-слов</span>.
-
+                        <span class="stats-stopwords-suffix">стоп-слов</span>
 						<br>
                         <span>
                         	<a class="send-to-glvrd" href="http://glvrd.ru" target="_blank">Отправить в Главред</a>
