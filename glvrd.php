@@ -81,11 +81,15 @@ function glvrd_add_meta_box()
 
 function glvrd_meta_box_markup()
 {
-    //statistic block
-    // echo '<div class="stats" style="display:none;">
     //advices block
-    echo '<div class="rule">' . __('No results', 'glvrd') . '</div>';
-    echo '<div class="stats">
+    echo '<div class="rule">
+    		Вставьте текст на русском языке и нажмите на кнопку с курительной трубкой. <br>
+    		Подходит для рекламы, новостей, статей, сайтов, инструкций, писем и коммерческих предложений.
+
+    		Не подходит для стихов, художественной прозы и СМС-диет.
+    	</div>';
+    //statistic block
+    echo '<div class="stats" style="display:none">
                     <div class="stats-score-div">
                         <span class="stats-score">-</span>
                         <span class="stats-score-suffix">баллов</span> из 10

@@ -19,27 +19,11 @@
     color: #fff;
 }
 
-
-/* STATS */
-/*#glvrd_section .inside {
-	padding-bottom: 1em;
-	display: -webkit-box;
-  	display: -moz-box;
-  	display: -ms-flexbox;
-  	display: -webkit-flex;
-  	display: flex;
-}*/
-
 #glvrd_section .rule {
-	/*flex-basis: 75%;*/
-	/*width: 75%;*/
-	/*float: left;*/
+    margin-bottom: 1em;
 }
 
 #glvrd_section .stats {
-	margin: -3em -2.5em;
-    margin-top: 0em;
-    margin-bottom: -1.5em;
     -border-top: 1px solid #ccc;
     padding-top: 1em;
     padding-bottom: .5em;
