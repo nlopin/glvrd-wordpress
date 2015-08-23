@@ -4,10 +4,11 @@ Donate link: http://lopinopulos.com/
 Tags: admin, posts, text, proofread
 Requires at least: 4.0
 Tested up to: 4.3
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Plugin will proofread posts and pages, written in russian. Proofread mechanism is provided by service glvrd.ru. Requires connect to glvrd.ru
+Plugin will proofread posts and pages written in russian. Proofread mechanism is provided by service glvrd.ru. Requires connect to glvrd.ru
 
 == Description ==
 
@@ -27,4 +28,4 @@ First proofread will take place after the button clicked. Next proofreads will b
 
 == Arbitrary section ==
 
-Glvrd.ru service was written by Maxim Ilyahov(maximilyahov.ru) and Anatoly Burov(http://anatolyburov.ru/). If you want to develop new plugins for that service, please, check website https://api.glvrd.ru/ for API or contact admin@glvrd.ru
+Glvrd.ru service was written by Maxim Ilyahov(maximilyahov.ru) and Anatoly Burov(http://anatolyburov.ru/). If you want to develop new plugins for that service, please, check the website https://api.glvrd.ru/ for API or contact admin@glvrd.ru
