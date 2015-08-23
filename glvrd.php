@@ -4,13 +4,13 @@
  */
 /*
 Plugin Name: Glvrd. Info style check
-Plugin URI: http://GLVRD.com/
-Description: Plugin uses the glvrd.ru service to help user to write perfect text in Russian language.
+Plugin URI: http://glvrd.ru/
+Description: Plugin uses the glvrd.ru service for proofreading in russian language.
 Version: 1.0
 Author: Nick Lopin
 Author URI: http://lopinopulos.ru
 License: GPLv2 or later
-Text Domain: glvrd
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 /*
@@ -35,9 +35,6 @@ if (!function_exists('add_action')) {
     exit;
 }
 
-define('GLVRD_VERSION', '1.0');
-
-// add new buttons
 add_filter('mce_buttons', 'glvrd_register_button');
 
 function glvrd_register_button($buttons)
@@ -54,12 +51,15 @@ function glvrd_register_tinymce_plugin($plugins_array)
     return $plugins_array;
 }
 
-add_action('admin_init', 'glvrd_admin_init');
+add_action('admin_enqueue_scripts', 'glvrd_enqueue_scripts');
 
-function glvrd_admin_init()
+function glvrd_enqueue_scripts($hook) 
 {
-    wp_enqueue_script('my-plugin-script', 'http://api.glvrd.ru/v1/glvrd.js', array('jquery')); //TODO only on post and page edit screens
-    wp_enqueue_style('glvrd-styles', plugins_url('/css/glvrd.css', __FILE__));
+	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+		wp_enqueue_script('sprintf', plugins_url('/js/sprintf.js', __FILE__));
+        wp_enqueue_script('glvrd-script', 'http://api.glvrd.ru/v1/glvrd.js', array('jquery', 'sprintf'));
+        wp_enqueue_style('glvrd-styles', plugins_url('/css/glvrd.css', __FILE__));
+    }
 }
 
 add_action('add_meta_boxes', 'glvrd_add_meta_box');
@@ -70,7 +70,7 @@ function glvrd_add_meta_box()
     foreach ($screens as $screen) {
         add_meta_box(
             'glvrd_section',
-            __('Glvrd advice', 'glvrd'),
+            'Главред советует',
             'glvrd_meta_box_markup',
             $screen,
             'normal',
@@ -82,10 +82,10 @@ function glvrd_add_meta_box()
 function glvrd_meta_box_markup()
 {
     //advices block
-    echo '<div class="rule">
-    		<p>Вставьте текст на русском языке и нажмите на оранжевую кнопку с курительной трубкой.</p>
-    		<p>Подходит для рекламы, новостей, статей, сайтов, инструкций, писем и коммерческих предложений.</p>
-    	</div>';
+    echo '<div class="rule">' .
+    		'<p>Вставьте текст и нажмите на оранжевую кнопку с курительной трубкой для проверки.</p>' .
+    		'<p>Подходит для рекламы, новостей, статей, сайтов, инструкций, писем и коммерческих предложений.</p>' .
+    	'</div>';
     //statistic block
     echo '<div class="stats" style="display:none">
                     <div class="stats-score-div">
@@ -96,19 +96,14 @@ function glvrd_meta_box_markup()
                     </div>
 
                     <div class="stats-text-div">
-                        <span class="stats-sentences">2</span>
-                        <span class="stats-sentences-suffix">предложения</span>
+                        <span class="stats-sentences"></span>
                         <br>
-                        <span class="stats-words">70</span>
-                        <span class="stats-words-suffix">слов</span>,
-
-                        <span class="stats-chars">569</span>
-                        <span class="stats-chars-suffix">знаков</span>
+                        <span class="stats-words"></span>,
+                        <span class="stats-chars"></span>
                     </div>
             
                     <div class="stats-result-div">
-                        <span class="stats-stopwords">6</span>
-                        <span class="stats-stopwords-suffix">стоп-слов</span>
+                        <span class="stats-stopwords"></span>
 						<br>
                         <span>
                         	<a class="send-to-glvrd" href="http://glvrd.ru" target="_blank">Отправить в Главред</a>
