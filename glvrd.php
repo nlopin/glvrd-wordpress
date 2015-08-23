@@ -3,8 +3,8 @@
  * @package Glvrd
  */
 /*
-Plugin Name: Glvrd. Info style check
-Plugin URI: http://glvrd.ru/
+Plugin Name: Glvrd proofreader
+Plugin URI: https://glvrd.ru/apps/
 Description: Plugin uses the glvrd.ru service for proofreading in russian language.
 Version: 1.0
 Author: Nick Lopin
