@@ -1,4 +1,4 @@
-=== Glvrd proofreader ===
+=== Russian texts proofreader Glvrd ===
 Contributors: lopinopulos
 Donate link: http://lopinopulos.com/
 Tags: admin, posts, text, proofread

@@ -50,8 +50,8 @@
             ed.on('ExecCommand', function (e) {
                 if (e.command === 'mceInsertContent') {
                     var selection = e.target.selection,
-                        bookmark = selection.getBookmark(2, true),
-                        cleanContent = me.removeMarkup(e.target.getContent());
+                        bookmark = selection.getBookmark(0),
+                        cleanContent = me.removeMarkup(e.target.getContent({format: 'raw'}));
 
                     e.target.setContent(cleanContent, ({format : "raw"}));
                     selection.moveToBookmark(bookmark);
@@ -63,7 +63,7 @@
             });
 
             ed.addCommand('glvrdCheckContent', function (e) {
-                var bookmark = this.selection.getBookmark(2, true);
+                var bookmark = this.selection.getBookmark(0);
 
                 me.proofread(this, bookmark);
 
@@ -71,13 +71,10 @@
                     me.isFirstLaunch = false;
                     jQuery(this.getBody()).on('keyup paste change keypress', function (event) {
                         if (me.delayedProofread) {
-                            console.log('clearTimeout');
                             clearTimeout(me.delayedProofread);
                         }
-                        console.log('setTimeout');
                         me.delayedProofread = setTimeout(function () {
-                            console.log('ExecutingTimeout');
-                            me.proofread(this, this.selection.getBookmark(2, true));
+                            me.proofread(this, this.selection.getBookmark(0));
                         }.bind(this), 1000);
                     }.bind(this));
                 }
@@ -91,8 +88,8 @@
          */
         proofread : function (editor, bookmark) {
             var me = this,
-                content = me.removeMarkup(editor.getContent()),
-                strippedContent = content.replace(/(<([^>]+)>)/ig, "");
+                content = me.removeMarkup(editor.getContent({format: 'raw'})),
+                strippedContent = editor.getContent({format: 'text'})
 
             window.glvrd.proofread(content, function (result) {
                 if (result.status = 'ok') {
@@ -197,7 +194,7 @@
                 author    : 'Nick Lopin',
                 authorurl : 'http://lopinopulos.ru',
                 infourl   : 'http://glvrd.ru',
-                version   : "1.0"
+                version   : "1.1"
             };
         }
     });
