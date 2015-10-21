@@ -57,7 +57,7 @@ function glvrd_enqueue_scripts($hook)
 {
 	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 		wp_enqueue_script('sprintf', plugins_url('/js/sprintf.js', __FILE__));
-        wp_enqueue_script('glvrd-script', 'http://api.glvrd.ru/v1/glvrd.js', array('jquery', 'sprintf'));
+        wp_enqueue_script('glvrd-script', '//api.glvrd.ru/v1/glvrd.js', array('jquery', 'sprintf'));
         wp_enqueue_style('glvrd-styles', plugins_url('/css/glvrd.css', __FILE__));
     }
 }
