@@ -30,19 +30,21 @@
                     ed.dom.loadCSS(url + '/../css/glvrd.css');
                 }
 
-                jQuery(ed.getBody()).delegate('.' + me.hintCls + ', .' + me.activeHintCls, 'mouseenter mouseleave', function (e) {
+                jQuery(ed.getBody()).delegate('.' + me.hintCls + ', .' + me.activeHintCls, 'mouseenter', function (e) {
                     jQuery(e.target).toggleClass(me.hoverHintCls);
                 });
 
-                jQuery(ed.getBody()).delegate('.' + me.hintCls, 'mouseover', function (e) {
-                    var target = jQuery(e.target);
-                    jQuery(ed.getDoc()).find('.' + me.activeHintCls).toggleClass(me.activeHintCls).toggleClass(me.hintCls);
+                jQuery(ed.getBody()).delegate('.' + me.hintCls + ', .' + me.activeHintCls, 'mouseleave', function (e) {
+                    jQuery(e.target).toggleClass(me.hoverHintCls);
+                    me.tooltip.hide();
+                });
 
-                    target.toggleClass(me.activeHintCls).toggleClass(me.hintCls);
-                    jQuery('#glvrd_section .inside .rule').html(
-                        '<h1>' + target.data('name') + '</h1>' +
-                        '<div class="rule-description">' + target.data('description') + '</div>'
-                    ).show('fast');
+                jQuery(ed.getBody()).delegate('.' + me.hintCls, 'mouseover', function (e) {
+                    var target = jQuery(e.target),
+                        html = '<strong>' + target.data('name') + '</strong>. <br>' + target.data('description');
+
+                    jQuery(ed.getDoc()).find('.' + me.activeHintCls).toggleClass(me.activeHintCls).toggleClass(me.hintCls);
+                    me.showTooltip(ed, html, target);
 
                 });
             });
@@ -51,15 +53,15 @@
                 if (e.command === 'mceInsertContent') {
                     var selection = e.target.selection,
                         bookmark = selection.getBookmark(0),
-                        cleanContent = me.removeMarkup(e.target.getContent({format: 'raw'}));
+                        cleanContent = me.removeMarkup(e.target.getContent({format : 'raw'}));
 
-                    e.target.setContent(cleanContent, ({format : "raw"}));
+                    e.target.setContent(cleanContent, {format : "raw"});
                     selection.moveToBookmark(bookmark);
                 }
             });
 
             ed.on('SaveContent', function (e) {
-                e.content = me.removeMarkup(e.target.getContent());
+                e.content = me.removeMarkup(e.content);
             });
 
             ed.addCommand('glvrdCheckContent', function (e) {
@@ -88,15 +90,15 @@
          */
         proofread : function (editor, bookmark) {
             var me = this,
-                content = me.removeMarkup(editor.getContent({format: 'raw'})),
-                strippedContent = editor.getContent({format: 'text'})
+                content = me.removeMarkup(editor.getContent({format : 'raw'})),
+                strippedContent = editor.getContent({format : 'text'})
 
             window.glvrd.proofread(content, function (result) {
                 if (result.status = 'ok') {
                     var $statsBlock = jQuery('#glvrd_section .stats'),
                         offset = 0;
 
-                    jQuery('#glvrd_section .rule').hide('fast').html('');
+                    jQuery('#glvrd_section .info').hide('fast').remove();
                     $statsBlock.find('.stats-score').text(result.score);
                     $statsBlock.find('.stats-stopwords').text(sprintf(me.pluralize(result.fragments.length, '%d стоп-слов', '%d стоп-слово', '%d стоп-слова'), result.fragments.length));
 
@@ -119,8 +121,8 @@
                             tagsLength = tagOpen.length + tagClose.length;
 
                         content = content.substring(0, fragment.start + offset)
-                        + tagOpen + content.substring(fragment.start + offset, fragment.end + offset)
-                        + tagClose + content.substring(fragment.end + offset, content.length);
+                            + tagOpen + content.substring(fragment.start + offset, fragment.end + offset)
+                            + tagClose + content.substring(fragment.end + offset, content.length);
                         offset += tagsLength;
                     });
                     this.setContent(content, ({format : "raw"}));
@@ -129,6 +131,42 @@
                     alert(result.message);
                 }
             }.bind(editor));
+        },
+
+        showTooltip : function (editor, text, target) {
+            var me = this,
+                contentContainer = jQuery(editor.getContentAreaContainer()),
+                pos, root, targetPos, tooltipCenter;
+
+            if (!me.tooltip) {
+                me.tooltip = new tinymce.ui.Tooltip({
+                    classes : 'glvrd-tooltip'
+                });
+                me.tooltip.renderTo(document.body);
+            }
+
+            jQuery(me.tooltip.getEl()).find('.mce-tooltip-inner').html(text);
+
+            pos = tinymce.DOM.getPos(contentContainer[0]);
+            targetPos = target.offset();
+            root = editor.dom.getRoot();
+            tooltipCenter = (jQuery(me.tooltip.getEl()).outerWidth() / 2);
+
+            // Adjust targetPos for scrolling in the editor
+            if (root.nodeName === 'BODY') {
+                targetPos.top -= root.ownerDocument.documentElement.scrollLeft || root.scrollLeft;
+                targetPos.left -= root.ownerDocument.documentElement.scrollTop || root.scrollTop;
+            } else {
+                targetPos.top -= root.scrollLeft;
+                targetPos.left -= root.scrollTop;
+            }
+
+            pos.x += targetPos.left - tooltipCenter + target.width() / 2;
+            pos.y += targetPos.top + target[0].offsetHeight + (contentContainer.outerHeight() - contentContainer.height());
+
+            // x is point in the middle of the target word, y is point below the word
+            me.tooltip.moveTo(pos.x, pos.y);
+            me.tooltip.show();
         },
 
         countSentences : function (text) {
@@ -194,7 +232,7 @@
                 author    : 'Nick Lopin',
                 authorurl : 'http://lopinopulos.ru',
                 infourl   : 'http://glvrd.ru',
-                version   : "1.1"
+                version   : "1.2"
             };
         }
     });

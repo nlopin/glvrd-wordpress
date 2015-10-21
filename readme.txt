@@ -1,10 +1,10 @@
 === Russian texts proofreader Glvrd ===
 Contributors: lopinopulos
 Donate link: http://lopinopulos.com/
-Tags: admin, posts, text, proofread
+Tags: admin, posts, text, proofread, russian
 Requires at least: 4.0
 Tested up to: 4.3
-Stable tag: trunk
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,19 @@ First proofread will take place after the button clicked. Next proofreads will b
 == Screenshots ==
 
 1. Proofreaded text with advice box under the editor
+
+== Changelog ==
+
+= 1.1 =
+* Fix loosing of the caret position after proofread
+
+= 1.0 =
+* Initial version
+
+== Upgrade Notice ==
+
+= 1.1 =
+In this version your caret will not disappear after the proofread
 
 == Arbitrary section ==
 

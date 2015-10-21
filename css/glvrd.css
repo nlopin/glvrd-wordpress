@@ -1,3 +1,9 @@
+.mce-glvrd-tooltip .mce-tooltip-inner {
+    max-width: 250px;
+    padding: 5px 10px;
+    text-align: left;
+}
+
 .glvrd-underline {
     color: #dA570f;
     background: url(../images/underline.svg) 0 100% repeat-x;
@@ -19,7 +25,7 @@
     color: #fff;
 }
 
-#glvrd_section .rule {
+#glvrd_section .info {
     margin-bottom: 1em;
 }
 
