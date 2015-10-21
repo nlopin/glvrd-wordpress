@@ -2,8 +2,8 @@
 Contributors: lopinopulos
 Donate link: http://lopinopulos.com/
 Tags: admin, posts, text, proofread, russian
-Requires at least: 4.0
-Tested up to: 4.3
+Requires at least: 4.2
+Tested up to: 4.3.1
 Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,9 +24,14 @@ First proofread will take place after the button clicked. Next proofreads will b
 
 == Screenshots ==
 
-1. Proofreaded text with advice box under the editor
+1. Proofreaded text with advice box right near the word
 
 == Changelog ==
+
+= 1.2 =
+* Rules is shown in tooltips instead of box below the editor
+* HTTPS library download
+* Cleaner HTML markup in HTML editor
 
 = 1.1 =
 * Fix loosing of the caret position after proofread
@@ -35,6 +40,9 @@ First proofread will take place after the button clicked. Next proofreads will b
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2 =
+Require Wordpress 4.2
 
 = 1.1 =
 In this version your caret will not disappear after the proofread
