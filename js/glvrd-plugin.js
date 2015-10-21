@@ -139,10 +139,9 @@
                 pos, root, targetPos, tooltipCenter;
 
             if (!me.tooltip) {
-                me.tooltip = new tinymce.ui.Tooltip({
-                    classes : 'glvrd-tooltip'
-                });
+                me.tooltip = new tinymce.ui.Tooltip();
                 me.tooltip.renderTo(document.body);
+                jQuery(me.tooltip.getEl()).addClass('mce-glvrd-tooltip');
             }
 
             jQuery(me.tooltip.getEl()).find('.mce-tooltip-inner').html(text);
