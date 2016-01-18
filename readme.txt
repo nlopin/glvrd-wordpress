@@ -1,46 +1,77 @@
 === Russian texts proofreader Glvrd ===
 Contributors: lopinopulos
-Donate link: http://lopinopulos.com/
-Tags: admin, posts, text, proofread, russian
+Tags: admin, posts, text, proofread, russian, главред, glavred, проверка текста
+Donate link: https://paypal.me/NLopin
 Requires at least: 4.2
-Tested up to: 4.3.1
-Stable tag: 1.2
+Tested up to: 4.4
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Plugin will proofread posts and pages written in russian. Proofread mechanism is provided by service glvrd.ru. Requires connect to glvrd.ru
+Главред помогает очистить текст от словестного мусора.
+
+Proofreads texts written in russian.
 
 == Description ==
 
-The plugin will proofread russian texts in TinyMCE Wordpress editor. After plugin activation, the new button will be added to the editor's toolbar and a box with results will appear under the editor. 
+[Главред](https://glvrd.ru) — это сервис для улучшения текста.
+Главред помогает находить в тексте стоп-слова: языковой мусор, рекламные и журналистские штампы, признаки плохого синтаксиса и канцелярит. Без этих слов текст становится понятным, коротким и информативным.
 
-First proofread will take place after the button clicked. Next proofreads will be made automatically.
+Информационный стиль используется в хороших журналах, рекламе, технической и профессиональной литературе.
+
+Главред не проверяет орфографию и пунктуацию.
 
 == Installation ==
+1. Загрузите Главред в папку `/wp-content/plugins/` 
+1. Активируйте плагин в меню 'Plugins' 
+1. Для проверки текста нажмите на оранжевую кнопку с трубкой на панели инструментов. Последующие проверки этого текста будут происходить автоматически
 
-1. Upload Glvrd proofreader to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Use the pipe button with orange background located at the post editor's toolbar to proofread your text.
+== Frequently Asked Questions ==
+= Что такое Главред? =
+
+[Главред](https://glvrd.ru) — это сервис для улучшения текста.
+Главред помогает находить в тексте стоп-слова: языковой мусор, рекламные и журналистские штампы, признаки плохого синтаксиса и канцелярит. Без этих слов текст становится понятным, коротким и информативным. Мы называем это информационным стилем.
+
+= Зачем нужен информационный стиль? =
+
+Информационный стиль помогает читателю разобраться в сложных вещах, а компаниям — построить доверительные отношения с клиентами.
+
+Информационный стиль используется в хороших журналах, рекламе, технической и профессиональной литературе.
+
+Информационный стиль не подходит для дешевой рекламы, рассчитанной на лохов; финансовых пирамид и инфобизнеса; рекламы диет, таблеток для похудения и курсов «Как заработать миллион».
+
+= Как пользоваться Главредом? =
+
+Вставьте текст в редактор, нажмите на кнопку с трубкой и дайте Главреду подумать. В хорошем тексте Главред выделит 1-2 слова на абзац, в плохом тексте красным будет всё. Изучите рекомендации Главреда и отредактируйте текст.
+
+= А орфография и пунктуация? =
+
+Главред не проверяет орфографию и пунктуацию.
+
+= Что у вас с конфиденциальностью? =
+
+Главред ведет анонимную статистику сработавших правил и сохраняет ваш последний текст в браузере. Главред не сохраняет ваш текст на сервере. Главред не знает, кто вы, и не хранит ваши личные данные.
 
 == Screenshots ==
-
-1. Proofreaded text with advice box right near the word
+1. Подсказка появляется при наведении мыши на выделенное слово
 
 == Changelog ==
+= 1.2.1 =
+* Исправлена ошибка с пропадающим при проверке текстом
 
 = 1.2 =
-* Rules is shown in tooltips instead of box below the editor
-* HTTPS library download
-* Cleaner HTML markup in HTML editor
+* Советы отображаются во всплывающих подсказках.
+* Загрузка библиотеки через HTTPS-соединение 
+* Чище разметка на вкладке HTML
 
 = 1.1 =
-* Fix loosing of the caret position after proofread
+* Курсор перестал менять позицию после проверки
 
 = 1.0 =
-* Initial version
+* Начальная версия
+
 
 == Upgrade Notice ==
-
 = 1.2 =
 Require Wordpress 4.2
 
@@ -48,5 +79,9 @@ Require Wordpress 4.2
 In this version your caret will not disappear after the proofread
 
 == Arbitrary section ==
+
+Составитель правил — Максим Ильяхов.
+
+Автор технологической платформы — Анатолий Буров.
 
 Glvrd.ru service was written by Maxim Ilyahov(maximilyahov.ru) and Anatoly Burov(http://anatolyburov.ru/). If you want to develop new plugins for that service, please, check the website https://api.glvrd.ru/ for API or contact admin@glvrd.ru

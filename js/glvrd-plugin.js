@@ -95,6 +95,9 @@
 
             window.glvrd.proofread(content, function (result) {
                 if (result.status = 'ok') {
+                    if (strippedContent !== this.getContent({format: 'text'})) {
+                        return;
+                    }
                     var $statsBlock = jQuery('#glvrd_section .stats'),
                         offset = 0;
 
