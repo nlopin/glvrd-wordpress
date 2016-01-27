@@ -4,7 +4,7 @@ Tags: admin, posts, text, proofread, russian, главред, glavred, пров�
 Donate link: https://paypal.me/NLopin
 Requires at least: 4.2
 Tested up to: 4.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,9 @@ Proofreads texts written in russian.
 1. Подсказка появляется при наведении мыши на выделенное слово
 
 == Changelog ==
+= 1.2.2 =
+* Добавлен счетчик знаков без пробелов
+
 = 1.2.1 =
 * Исправлена ошибка с пропадающим при проверке текстом
 

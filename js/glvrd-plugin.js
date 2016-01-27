@@ -94,6 +94,7 @@
                 strippedContent = editor.getContent({format : 'text'})
 
             window.glvrd.proofread(content, function (result) {
+                
                 if (result.status = 'ok') {
                     if (strippedContent !== this.getContent({format: 'text'})) {
                         return;
@@ -110,8 +111,12 @@
 
                     var wordQuantity = me.countWords(strippedContent);
                     $statsBlock.find('.stats-words').text(sprintf(me.pluralize(wordQuantity, '%d слов', '%d слово', '%d слово'), wordQuantity));
-                    var charQuantity = me.countChars(strippedContent);
-                    $statsBlock.find('.stats-chars').text(sprintf(me.pluralize(charQuantity, '%d знаков', '%d знак', '%d знака'), charQuantity));
+                    var charQuantity = me.countChars(strippedContent, true);
+                    var charQuantityWithoutSpaces  = me.countChars(strippedContent, false);
+                    $statsBlock.find('.stats-chars').text(
+                        sprintf(me.pluralize(charQuantity, '%d знаков', '%d знак', '%d знака'), charQuantity) +
+                        ' (' + charQuantityWithoutSpaces + ' без пробелов) '
+                    );
 
                     if (result.fragments.length) {
                         $statsBlock.find('a.send-to-glvrd').attr('href', result.fragments[0].url);
@@ -191,12 +196,13 @@
             return text.replace(/[А-Яа-яA-Za-z0-9-]+([^А-Яа-яA-Za-z0-9-]+)?/g, ".").length;
         },
 
-        countChars : function (text) {
+        countChars : function (text, countSpaces) {
             if (text.length === 0) {
                 return 0;
             }
 
-            return text.replace(/[^А-Яа-яA-Za-z0-9-\s.,()-]+/g, "").length;
+            var regexp = countSpaces ? /[^А-Яа-яA-Za-z0-9-\s.,:()-]+/g : /[^А-Яа-яA-Za-z0-9-.,:()-]+/g;
+            return text.replace(regexp, "").length;
         },
 
         removeMarkup : function (text) {

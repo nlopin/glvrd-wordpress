@@ -6,7 +6,7 @@
 Plugin Name: Russian texts proofreader Glvrd
 Plugin URI: https://glvrd.ru/apps/
 Description: Plugin uses the glvrd.ru service for proofreading in russian language.
-Version: 1.2.1
+Version: 1.2.2
 Author: Nick Lopin
 Author URI: http://lopinopulos.ru
 License: GPLv2 or later
