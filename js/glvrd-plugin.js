@@ -164,8 +164,8 @@
                 targetPos.top -= root.ownerDocument.documentElement.scrollLeft || root.scrollLeft;
                 targetPos.left -= root.ownerDocument.documentElement.scrollTop || root.scrollTop;
             } else {
-                targetPos.top -= root.scrollLeft;
-                targetPos.left -= root.scrollTop;
+                targetPos.top -= root.scrollTop;
+                targetPos.left -= root.scrollLeft;
             }
 
             pos.x += targetPos.left - tooltipCenter + target.width() / 2;
